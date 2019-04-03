@@ -37,6 +37,10 @@ class MuseumTest < Minitest::Test
   end
 
   def test_it_recommends_exhibits
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
     assert_equal @dmns.recommend_exhibits(@bob), [@gems_and_minerals, @dead_sea_scrolls]
     assert_equal @dmns.recommend_exhibits(@sally), [@imax]
+  end
 end
