@@ -55,13 +55,16 @@ class MuseumTest < Minitest::Test
   end
 
   def test_it_can_list_patrons_by_exhibit_interest
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
     @dmns.admit(@bob)
     @dmns.admit(@sally)
     @sally.add_interest("Dead Sea Scrolls")
 
     expected = {
-      @gems_and_minerals => [@bob]
-      @dead_sea_scrolls => [@bob, @sally]
+      @gems_and_minerals => [@bob],
+      @dead_sea_scrolls => [@bob, @sally],
       @imax => []
     }
 
