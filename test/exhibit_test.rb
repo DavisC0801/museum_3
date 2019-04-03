@@ -1,4 +1,4 @@
-require "minitest"
+require "minitest/autorun"
 require "./lib/exhibit"
 
 class ExhibitTest < Minitest::Test
@@ -8,7 +8,7 @@ class ExhibitTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_isntance_of Exhibit, @exhibit
+    assert_instance_of Exhibit, @exhibit
   end
 
   def test_it_has_a_name
