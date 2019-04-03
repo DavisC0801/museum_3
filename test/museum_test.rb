@@ -79,14 +79,17 @@ class MuseumTest < Minitest::Test
   end
 
   def test_patrons_will_spend_money_on_admission
+    assert_equal @dmns.revenue, 0
     @dmns.add_exhibit(@gems_and_minerals)
     @dmns.add_exhibit(@dead_sea_scrolls)
     @dmns.add_exhibit(@imax)
     @dmns.admit(@tj)
     assert_equal @tj.spending_money, 7
-    @bob.add_interest("IMAX")
-    @dmns.admit(@bob)
-    assert_equal @bob.spending_money, 0
+    bob = Patron.new("Bob", 10)
+    bob.add_interest("Dead Sea Scrolls")
+    bob.add_interest("IMAX")
+    @dmns.admit(bob)
+    assert_equal bob.spending_money, 0
     @sally.add_interest("Dead Sea Scrolls")
     @sally.add_interest("IMAX")
     @dmns.admit(@sally)
@@ -96,7 +99,7 @@ class MuseumTest < Minitest::Test
 
     expected = {
       @gems_and_minerals => [@morgan],
-      @dead_sea_scrolls => [@bob, @morgan],
+      @dead_sea_scrolls => [bob, @morgan],
       @imax => [@sally]
     }
 
